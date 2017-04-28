@@ -1,0 +1,9 @@
+# Need a linux or mac to complete this exercise. Putty may work on windows
+
+ docker run -d -P --name test_sshd rastasheep/ubuntu-sshd:14.04
+ docker port test_sshd 22
+
+# response will 0.0.0.0:34353
+# open up new terminal:
+
+ssh root@localhost -p 34353
