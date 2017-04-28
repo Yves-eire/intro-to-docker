@@ -1,0 +1,11 @@
+#Getting a ubuntu image on your machine
+
+Step 1: Pull image from Docker hub
+docker pull ubuntu:latest
+
+Step 2: Run and attach to the bash terminal inside the image
+docker run -it docker.io/ubuntu:latest /bin/bash
+
+#now test that it is ubuntu, enter the command uname to get the name of the os
+uname
+

@@ -1,0 +1,14 @@
+~ Running hadoop locally with docker
+
+Step 1: Pull hadoop ready image
+docker pull sequenceiq/hadoop-docker:2.7.1
+
+Step 2: Run the image and attach to the bash
+docker run -it sequenceiq/hadoop-docker:2.7.1 /etc/bootstrap.sh -bash
+
+Step 3: change to hadoop example files and run wordcount test
+cd $HADOOP_PREFIX
+bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.1.jar grep input output 'dfs[a-z.]+'
+
+Step 4: See the output
+bin/hdfs dfs -cat output/*

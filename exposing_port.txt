@@ -1,0 +1,7 @@
+# Exporting to host's port
+
+Step 1:
+docker run --name nginx-container -9087:80 -d nginx
+
+Step 2:
+visit localhost:9087 on your browser

@@ -1,0 +1,4 @@
+docker pull ubuntu:latest
+docker run -it docker.io/ubuntu:latest /bin/bash
+
+#Now in the bash terminal of ubuntu

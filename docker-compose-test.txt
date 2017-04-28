@@ -1,0 +1,59 @@
+
+Step 1:
+
+mkdir composetest
+cd composetest
+
+Create a file called app.py in your project directory and paste this in:
+
+from flask import Flask
+from redis import Redis
+
+app = Flask(__name__)
+redis = Redis(host='redis', port=6379)
+
+@app.route('/')
+def hello():
+    count = redis.incr('hits')
+    return 'Hello World! I have been seen {} times.\n'.format(count)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", debug=True)
+Create another file called requirements.txt in your project directory and paste this in:
+
+flask
+redis
+These define the application’s dependencies.
+
+Step 2: Create a Dockerfile
+In this step, you write a Dockerfile that builds a Docker image. The image contains all the dependencies the Python application requires, including Python itself.
+
+In your project directory, create a file named Dockerfile and paste the following:
+
+FROM python:3.4-alpine
+ADD . /code
+WORKDIR /code
+RUN pip install -r requirements.txt
+CMD ["python", "app.py"]
+This tells Docker to:
+
+Build an image starting with the Python 3.4 image.
+Add the current directory . into the path /code in the image.
+Set the working directory to /code.
+Install the Python dependencies.
+Set the default command for the container to python app.py.
+For more information on how to write Dockerfiles, see the Docker user guide and the Dockerfile reference.
+
+Step 3: Define services in a Compose file
+Create a file called docker-compose.yml in your project directory and paste the following:
+
+version: '2'
+services:
+  web:
+    build: .
+    ports:
+     - "5000:5000"
+    volumes:
+     - .:/code
+  redis:
+    image: "redis:alpine"
